@@ -1,0 +1,24 @@
+version: '3.4'
+
+services:
+  app:
+    image: socialabackend
+    volumes:
+      - ./:/usr/src/app
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+    environment:
+      NODE_ENV: development
+    ports:
+      - 3000:3000
+      - 9229:9229
+    command: ["npx", "nodemon", "--watch", ".", "--inspect", "server.js"]
+    # command: ["npm", "start"]
+  
+  db:
+    image: mongo
+    restart: always
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: developmental
